@@ -48,12 +48,6 @@ const pizzaData = [
 ];
 
 function Header() {
-  // const style = {
-  //   color: 'red',
-  //   fontSize: '48px',
-  //   textTransform: 'uppercase',
-  // };
-
   return (
     <header className='header '>
       <h1>Fast React Pizza Co.</h1>
@@ -108,16 +102,6 @@ function Footer({ isMenuMaint }) {
   const openHour = 8;
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
-
-  // if (!isOpen) {
-  //   return (
-  //     <div className='order'>
-  //       <h1>OPEN NOW</h1>
-  //       <p>Open Until {closeHour}, Visit or Order online.</p>
-  //       <button className='btn'>Order</button>
-  //     </div>
-  //   );
-  // }
 
   return (
     <footer className='footer'>
