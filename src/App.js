@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './index.css';
 
@@ -61,10 +61,12 @@ function Header() {
   );
 }
 
-function Menu() {
+function Menu({ menuMaint }) {
   const pizzas = pizzaData;
   // const pizzas = [];
   const numPizzas = pizzas.length;
+
+  menuMaint(numPizzas);
 
   return (
     <main className='menu'>
@@ -101,7 +103,7 @@ function Pizza({ pizzaObj }) {
   );
 }
 
-function Footer() {
+function Footer({ isMenuMaint }) {
   const hour = new Date().getHours();
   const openHour = 8;
   const closeHour = 22;
@@ -119,15 +121,17 @@ function Footer() {
 
   return (
     <footer className='footer'>
-      {isOpen ? (
+      {isOpen && isMenuMaint ? (
         <Order closeHour={closeHour} openHour={openHour} />
       ) : (
-        <div className='order'>
-          <h1>CURRENTLY CLOSED</h1>
-          <p>
-            We will be open soon! (Hours: {openHour}:00 - {closeHour}:00)
-          </p>
-        </div>
+        isMenuMaint && (
+          <div className='order'>
+            <h1>CURRENTLY CLOSED</h1>
+            <p>
+              We will be open soon! (Hours: {openHour}:00 - {closeHour}:00)
+            </p>
+          </div>
+        )
       )}
     </footer>
   );
@@ -146,11 +150,17 @@ function Order({ closeHour, openHour }) {
 }
 
 function App() {
+  const [menuFooter, setMenuFooter] = useState(true);
+
+  const menuMaint = (menuLength) => {
+    setMenuFooter(menuLength > 0);
+  };
+
   return (
     <div className='container'>
       <Header />
-      <Menu />
-      <Footer />
+      <Menu menuMaint={menuMaint} />
+      <Footer isMenuMaint={menuFooter} />
     </div>
   );
 }
